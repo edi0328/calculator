@@ -21,6 +21,12 @@ function operate(op, a, b) {
     if (op == '/') return divide(a, b);
 }
 
+function changeDisplay(content) {
+    const display = document.querySelector("#display");
+    display.textContent = content;
+    return content;
+}
+
 let a;
 let b;
 let op;
