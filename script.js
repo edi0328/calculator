@@ -25,7 +25,7 @@ function changeDisplay(content) {
     const display = document.querySelector("#display");
     if (display.textContent == '0') display.textContent = content;
     else display.textContent += content;
-    return display.textContent;
+    return Number(display.textContent);
 }
 
 let a;
@@ -35,12 +35,21 @@ let op;
 // When button is pressed, display changes and stores number
 const numButtons = document.querySelectorAll(".num");
 numButtons.forEach(button => {
-    button.addEventListener("click", () => a = changeDisplay(button.textContent));
-})
+    button.addEventListener("click", () => {
+        if (op === undefined) a = changeDisplay(button.textContent);
+        else b = changeDisplay(button.textContent);
+    })
+});
 
 // Pressing an operation stores the operation
 const opButtons = document.querySelectorAll(".op");
 opButtons.forEach(button => {
     button.addEventListener("click", () => 
-        op = button.textContent)
-})
+        op = button.textContent
+)});
+
+const equalButton = document.querySelector("#eq");
+equalButton.addEventListener("click", () => {
+    operate(op, a, b);
+});
+
