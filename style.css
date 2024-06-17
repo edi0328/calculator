@@ -20,6 +20,7 @@
     align-items: center;
     width: 760px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 #pad {
