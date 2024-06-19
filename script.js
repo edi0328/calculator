@@ -11,7 +11,6 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b == 0) return "Error";
     return a / b;
 }
 
@@ -33,7 +32,6 @@ function changeDisplay(content) {
 let a;
 let b;
 let op;
-let ans;
 
 // When button is pressed, display changes and stores number
 const numButtons = document.querySelectorAll(".num");
@@ -47,32 +45,27 @@ numButtons.forEach(button => {
 const opButtons = document.querySelectorAll(".op");
 opButtons.forEach(button => {
     button.addEventListener("click", () => {
-        if (a !== undefined) {
-            ans = operate(op, a, b);
-            b = null;
-            changeDisplay(ans);
-            op = button.textContent;
-            a = ans
-        } else {
-        op = button.textContent;
-        a = b;
-        b = null;
+        if (a === undefined) {
+            a = b;
+        } else if (b != null) {
+            a = operate(op, a, b);
         }
+        b = null;
+        changeDisplay(a);
+        op = button.textContent;
 })});
 
 const equalButton = document.querySelector("#eq");
 equalButton.addEventListener("click", () => {
     if (a && b) {
-    ans = operate(op, a, b);
-    b = null;
-    a = ans;
-    changeDisplay(ans);
+        a = operate(op, a, b)
+        b = null;
+        changeDisplay(a);
     }
 });
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener("click", () => {
-    ans = null;
     b = null;
     a = null
     op = null;
