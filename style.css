@@ -38,3 +38,7 @@ button {
     border-radius: 12px;
     font-size: 64px;
 }
+
+.op {
+    color: darkgrey;
+}

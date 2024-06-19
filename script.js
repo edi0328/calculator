@@ -15,15 +15,21 @@ function divide(a, b) {
 }
 
 function operate(op, a, b) {
-    if (op == '+') return add(a, b);
-    if (op == '-') return substract(a, b);
-    if (op == '*') return multiply(a, b);
-    if (op == '/') return divide(a, b);
+    let ans;
+    if (op == '+') ans = add(a, b);
+    if (op == '-') ans = substract(a, b);
+    if (op == '*') ans = multiply(a, b);
+    if (op == '/') ans = divide(a, b);
+    return Math.round(ans * 1e10) / 1e10;
 }
 
 // Update display when number is pressed, b is zero for next input numbers
 function changeDisplay(content) {
     const display = document.querySelector("#display");
+    if (content == Infinity) {
+        display.textContent = "Division by 0 error";
+        return Infinity;
+    }
     if (display.textContent == '0' || b == null) display.textContent = content;
     else display.textContent += content;
     return Number(display.textContent);
@@ -38,26 +44,29 @@ const numButtons = document.querySelectorAll(".num");
 numButtons.forEach(button => {
     button.addEventListener("click", () => {
         b = changeDisplay(button.textContent);
-    }
-)});
+    })
+});
 
 // Pressing an operation stores the operation and assigns the displayed value to a
 const opButtons = document.querySelectorAll(".op");
 opButtons.forEach(button => {
     button.addEventListener("click", () => {
-        if (a === undefined) {
+        if (a == null && b != null) {
             a = b;
-        } else if (b != null) {
+            b = null;
+            changeDisplay(a);
+        } else if (a != null && b != null)  {
             a = operate(op, a, b);
+            b = null;
+            changeDisplay(a);
         }
-        b = null;
-        changeDisplay(a);
         op = button.textContent;
-})});
+    })
+});
 
 const equalButton = document.querySelector("#eq");
 equalButton.addEventListener("click", () => {
-    if (a && b) {
+    if (a != null && b != null && op != null) {
         a = operate(op, a, b)
         b = null;
         changeDisplay(a);
