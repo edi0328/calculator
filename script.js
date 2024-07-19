@@ -26,7 +26,7 @@ function operate(op, a, b) {
 // Update display when number is pressed, b is zero for next input numbers
 function changeDisplay(content) {
     const display = document.querySelector("#display");
-    if (content == Infinity) {
+    if (content == Infinity || content == -Infinity) {
         display.textContent = "Division by 0 error";
         return Infinity;
     }
